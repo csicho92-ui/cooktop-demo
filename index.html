@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="RBR-GF3100C 가스쿡탑 조작부를 사용설명서대로 눌러 보는 3D 체험 페이지">
+<meta name="description" content="RBR-GF3100C 가스쿡탑을 3D로 둘러보고 조작부와 스마트링크 앱 자동조리를 체험하는 페이지">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>RBR-GF3100C 조작 체험</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -30,7 +30,7 @@
   --flame:#7098ff; --flame-soft:#1c2643; --warn:#fb8a4c; --ok:#5dc282; --stage-a:#3a3936; --stage-b:#171a1e; color-scheme:dark}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;word-break:keep-all;overflow-wrap:break-word}
 .wrap{max-width:1200px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 header{display:grid;gap:6px;margin-bottom:22px;max-width:70ch}
 .eyebrow{font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:500}
@@ -134,6 +134,63 @@ table{width:100%;border-collapse:collapse;font-size:13px}
 td{padding:5px 0;border-bottom:1px solid var(--line);vertical-align:top}
 td:last-child{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted);padding-left:10px}
 tr:last-child td{border-bottom:0}
+.story{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:22px}
+@media (max-width:780px){.story{grid-template-columns:minmax(0,1fr)}}
+.story article{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:6px;align-content:start;min-width:0}
+.story .k{font-size:12px;color:var(--flame);font-weight:600;letter-spacing:.04em}
+.story h3{margin:0;font-size:17px;line-height:1.35;text-wrap:balance}
+.story p{margin:0;color:var(--muted);font-size:13.5px}
+.story .btn{justify-self:start;margin-top:6px}
+/* phone: the app UI keeps a light look in both themes */
+.phonewrap{display:grid;gap:10px}
+.phone{width:100%;max-width:300px;margin:0 auto;border-radius:36px;padding:9px;background:#1b1c1f;box-shadow:0 14px 30px -18px rgba(0,0,0,.6),inset 0 0 0 1px #34363b}
+.screen{--a-bg:#f5f5f6;--a-card:#ffffff;--a-ink:#1c1e22;--a-mut:#6c7077;--a-line:#e3e4e8;--a-acc:#2b5fe8;--a-acc-soft:#e6ecff;--a-warn:#c2410c;
+  background:var(--a-bg);color:var(--a-ink);border-radius:28px;height:560px;overflow:hidden;display:flex;flex-direction:column;font-size:13px;line-height:1.5;color-scheme:light}
+.sbar{display:flex;justify-content:space-between;padding:10px 20px 4px;font-family:var(--f-mono);font-size:11px;color:var(--a-ink)}
+.ahead{display:flex;align-items:center;gap:8px;padding:6px 14px 10px;border-bottom:1px solid var(--a-line)}
+.ahead b{font-size:15px;flex:1;min-width:0}
+.aback{appearance:none;border:0;background:none;font:inherit;font-size:18px;line-height:1;color:var(--a-ink);cursor:pointer;padding:4px 6px;border-radius:8px}
+.abody{flex:1;overflow:auto;padding:12px 14px;display:grid;gap:10px;align-content:start}
+.afoot{padding:10px 14px 16px;display:grid;gap:6px;border-top:1px solid var(--a-line);background:var(--a-card)}
+.screen p{margin:0;color:var(--a-mut);font-size:12.5px}
+.screen .btn{background:var(--a-card);color:var(--a-ink);border-color:var(--a-line);width:100%;text-align:center}
+.screen .btn small{color:var(--a-mut)}
+.screen .btn.primary{background:var(--a-acc);border-color:var(--a-acc);color:#fff}
+.screen .btn:disabled{opacity:.45;cursor:not-allowed}
+.acard{background:var(--a-card);border:1px solid var(--a-line);border-radius:14px;padding:12px;display:grid;gap:6px}
+.rlist{display:grid;gap:8px}
+.rbtn{appearance:none;font:inherit;text-align:left;background:var(--a-card);border:1px solid var(--a-line);border-radius:14px;padding:10px 12px;display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:center;cursor:pointer;color:var(--a-ink)}
+.rbtn:hover{border-color:var(--a-acc)}
+.rbtn .th{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-size:12px;font-weight:700;color:#fff}
+.rbtn b{display:block;font-size:13.5px}.rbtn small{color:var(--a-mut);font-size:11.5px}
+.tagx{font-size:10.5px;padding:1px 7px;border-radius:99px;background:var(--a-acc-soft);color:var(--a-acc);font-weight:600;margin-left:4px;vertical-align:1px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.steps li{display:grid;grid-template-columns:20px 1fr auto;gap:8px;font-size:12.5px;padding:6px 8px;border-radius:9px;align-items:center}
+.steps li i{font-style:normal;width:20px;height:20px;border-radius:50%;background:var(--a-line);display:grid;place-items:center;font-size:11px;font-weight:700}
+.steps li.cur{background:var(--a-acc-soft)} .steps li.cur i{background:var(--a-acc);color:#fff}
+.steps li.ok{color:var(--a-mut)} .steps li.ok i{background:#c9ccd2;color:#fff}
+.steps li span:last-child{font-variant-numeric:tabular-nums;color:var(--a-mut)}
+.seg2{display:flex;gap:6px}.seg2 button{flex:1;appearance:none;font:inherit;font-size:12.5px;padding:6px;border-radius:9px;border:1px solid var(--a-line);background:var(--a-card);color:var(--a-ink);cursor:pointer}
+.seg2 button.sel{border-color:var(--a-acc);background:var(--a-acc-soft);color:var(--a-acc);font-weight:600}
+.bmap{position:relative;background:#2a2c31;border-radius:16px;height:190px}
+.bmap button{position:absolute;appearance:none;border-radius:50%;border:2px solid #5a5e66;background:#383b41;color:#e9ebee;font:600 15px var(--f-mono);cursor:pointer;display:grid;place-items:center;line-height:1.2}
+.bmap button small{display:block;font:500 10px var(--f-body);color:#b5b9c0}
+.bmap button:disabled{opacity:.4;cursor:not-allowed}
+.bmap button.sel,.bmap button:not(:disabled):hover{border-color:#7fa6ff}
+.bmap button.sel{background:#2b5fe8}
+.ring{width:140px;height:140px;margin:4px auto 0;position:relative}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring div{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.ring b{font:600 26px var(--f-mono);font-variant-numeric:tabular-nums}
+.ring small{color:var(--a-mut);font-size:11.5px}
+.alertx{background:#fff4e5;border:1px solid #f5c58a;color:#7a3a05;border-radius:12px;padding:8px 10px;font-size:12.5px}
+.screen label{font-size:12px;color:var(--a-mut);display:grid;gap:4px}
+.screen input,.screen select{font:inherit;font-size:13px;padding:6px 8px;border-radius:8px;border:1px solid var(--a-line);background:#fff;color:var(--a-ink);width:100%}
+.strow{display:grid;grid-template-columns:22px 1fr 1fr 28px;gap:6px;align-items:center}
+.strow i{font-style:normal;font-size:11px;color:var(--a-mut);text-align:center}
+.strow button{appearance:none;border:0;background:none;color:var(--a-mut);font-size:16px;cursor:pointer;border-radius:6px}
+.err{color:var(--a-warn);font-size:12px}
+.phonenote{font-size:12px;color:var(--muted);text-align:center}
 .foot{margin-top:28px;color:var(--muted);font-size:12.5px;max-width:80ch}
 @media (max-width:520px){.dig{height:30px}.key{min-height:42px;min-width:30px}.key svg{width:20px;height:20px}.onoff{width:32px;height:32px;font-size:8px}.posi{width:11px;height:11px}.dcell{gap:3px}.leds{gap:2px 5px}.leds svg{width:11px;height:11px}.panel{padding:8px 2px 6px}}
 @media (prefers-reduced-motion:reduce){.flames,.spark,.key.flash,.tdots i.blink,.leds b.blink{animation:none}}
@@ -145,8 +202,29 @@ tr:last-child td{border-bottom:0}
   <header>
     <div class="eyebrow">가스쿡탑 레인지 · 사용 및 설치설명서 기준 시뮬레이터</div>
     <h1><span class="mono">RBR-GF3100C</span> 조작 체험</h1>
-    <p>설명서의 터치 조작부를 그대로 옮겼습니다. 전원을 켜고, 잠금을 풀고, 불을 붙여 보세요. 오른쪽 미션을 따라가면 주요 기능을 모두 써 볼 수 있습니다.</p>
+    <p>설명서의 터치 조작부와 스마트링크 앱 자동조리를 그대로 옮겼습니다. 전원을 켜고, 잠금을 풀고, 불을 붙이거나 앱에서 레시피를 보내 보세요. 미션을 따라가면 주요 기능을 모두 써 볼 수 있습니다.</p>
   </header>
+
+  <section class="story" aria-label="이 레인지로 달라지는 부엌">
+    <article>
+      <span class="k">자동조리</span>
+      <h3>레시피를 고르면, 불 조절과 시간은 레인지가</h3>
+      <p>앱에서 레시피를 보내고 르플레 전용 냄비를 올린 뒤 켜짐 키만 누르면 됩니다. 단계마다 화력이 바뀌고 남은 시간과 완료 알림이 앱으로 옵니다.</p>
+      <button class="btn primary" data-go="app">자동조리 해 보기</button>
+    </article>
+    <article>
+      <span class="k">디자인</span>
+      <h3>노브 없이 터치로, 미스티 그레이 유리 위에서</h3>
+      <p>쇼트(Schott) 클리어트랜스 세라믹 글라스에 터치 컨트롤을 넣어 상판이 평평합니다. 3D로 돌려 보면서 조리대에 놓인 모습을 확인해 보세요.</p>
+      <button class="btn" data-go="design">3D로 둘러보기</button>
+    </article>
+    <article>
+      <span class="k">안전</span>
+      <h3>센서가 냄비 온도를 보고, 잠금이 오작동을 막습니다</h3>
+      <p>2중 쉴드 센서가 과열을 감지하면 불꽃을 줄이거나 가스를 차단합니다. 아이나 반려동물의 터치는 안전잠금으로, 조리 시간은 타이머로 관리합니다.</p>
+      <button class="btn" data-go="safety">안전 기능 해 보기</button>
+    </article>
+  </section>
 
   <div class="grid">
     <section class="device" aria-label="쿡탑 시뮬레이터">
@@ -202,8 +280,16 @@ tr:last-child td{border-bottom:0}
     </section>
 
     <aside class="rail">
-      <div class="card">
-        <h2>체험 미션 <small id="mcount">0 / 11</small></h2>
+      <div class="card" id="appCard">
+        <h2>스마트링크 앱 <small>자동조리 · 우리집 레시피</small></h2>
+        <div class="phonewrap">
+          <div class="phone"><div class="screen" id="app"></div></div>
+          <div class="phonenote">레시피의 화력과 시간은 체험용 예시 값입니다.</div>
+        </div>
+      </div>
+
+      <div class="card" id="missionCard">
+        <h2>체험 미션 <small id="mcount">0 / 13</small></h2>
         <div class="prog"><i id="mbar"></i></div>
         <ul class="missions" id="missions"></ul>
       </div>
@@ -242,8 +328,7 @@ tr:last-child td{border-bottom:0}
           </select>
           <button class="btn" id="simErr">에러 발생</button>
         </div>
-        <span class="lbl">스마트링크 앱 연결</span>
-        <div id="bleBox" class="btns"></div>
+        <div class="btns"><button class="btn" id="simLow">자동조리 중 물이 너무 적을 때<small>과열방지센서 작동, 자동조리 취소</small></button></div>
         <div class="btns"><button class="btn" id="reset">처음 설치 상태로 되돌리기</button></div>
       </div>
 
@@ -263,12 +348,17 @@ tr:last-child td{border-bottom:0}
           <tr><td>타이머 설정 범위</td><td>0~99분</td></tr>
           <tr><td>튀김 기름 양</td><td>200mL 이상</td></tr>
           <tr><td>블루투스 등록 휴대폰</td><td>최대 7대</td></tr>
+          <tr><td>자동조리 가능 화구</td><td>대화구 01·02</td></tr>
+          <tr><td>자동조리 냄비</td><td>르플레 RCP-REFLET22</td></tr>
+          <tr><td>우리집 레시피 화력별 시간</td><td>최대 40분</td></tr>
+          <tr><td>우리집 레시피 총 시간</td><td>최대 2시간</td></tr>
+          <tr><td>우리집 레시피 9단 합계</td><td>최대 59분</td></tr>
         </table>
       </div>
     </aside>
   </div>
 
-  <p class="foot">사용설명서 내용을 바탕으로 만든 비공식 체험 페이지입니다. 실제 제품의 반응 속도나 표시와 다를 수 있으니, 설치와 안전 관련 내용은 반드시 제품 사용설명서와 서비스 센터(1544-3651)를 기준으로 확인하세요.</p>
+  <p class="foot">자동조리 중에도 앱 알림과 조리물, 제품 상태를 확인하세요. 자동조리는 블루투스 연결과 전용 냄비(르플레)가 필요하며, 조리 환경과 재료에 따라 결과가 달라질 수 있습니다. 사용설명서 내용을 바탕으로 만든 비공식 체험 페이지입니다. 실제 제품의 반응 속도나 표시와 다를 수 있으니, 설치와 안전 관련 내용은 반드시 제품 사용설명서와 서비스 센터(1544-3651)를 기준으로 확인하세요.</p>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -301,7 +391,9 @@ const MISSIONS=[
   ['hood','후드 연동','화구가 모두 꺼진 상태에서 설정'],
   ['auto','자동 불꽃조절 보기','상황 재현 → 냄비 과열 감지'],
   ['err','에러 해제','에러 화구의 켜짐/꺼짐 키를 1초간'],
-  ['ble','앱 연결','통신 키 3초 → 기기 선택 → PIN 입력']
+  ['ble','앱 연결','통신 키 3초 → 기기 선택 → PIN 입력'],
+  ['autocook','자동조리','앱에서 레시피 전송 → 냄비 올리고 켜짐 키'],
+  ['myrecipe','우리집 레시피','화력과 시간을 정해 직접 등록']
 ];
 const KEYINFO={
   power:['전원 키','약 1초간 길게 눌러 전원을 켜고 끕니다. 작동 중에 누르면 모든 화구가 꺼집니다.'],
@@ -319,7 +411,7 @@ function fresh(){return{power:false,locked:true,safety:false,
   b:BN.map(()=>({lv:0,st:'off',timer:0,auto:false,autoT:0,err:null,run:0,run9:0,ignT:0})),
   tsel:null,tedit:false,editMin:0,editChanged:false,teditT:0,
   hood:false,hoodModel:0,hoodRun:0,ble:'off',wifi:false,voice:true,melody:true,volume:2,theme:1,
-  mode:null,errShow:null,idle:0,speed:(S&&S.speed)||1}}
+  mode:null,errShow:null,idle:0,ac:{phase:'idle',recipe:null,burner:null,si:0,st:0,waitT:0,doneT:0,alerted:-1},speed:(S&&S.speed)||1}}
 let S=null; S=fresh();
 let done={}; let logs=[];
 const now=()=>Date.now();
@@ -356,7 +448,7 @@ function petals(b,L,n){let d='';const r=b.r+1;
   return d;}
 
 /* ---------- 7 segment ---------- */
-const SEG={'0':'abcdef','1':'bc','2':'abdeg','3':'abcdg','4':'bcfg','5':'acdfg','6':'acdefg','7':'abc','8':'abcdefg','9':'abcdfg','A':'abcefg','b':'cdefg','C':'adef','d':'bcdeg','E':'adefg','F':'aefg','L':'def','n':'ceg','o':'cdeg','r':'eg','-':'g','_':'d',' ':''};
+const SEG={'0':'abcdef','1':'bc','2':'abdeg','3':'abcdg','4':'bcfg','5':'acdfg','6':'acdefg','7':'abc','8':'abcdefg','9':'abcdfg','A':'abcefg','b':'cdefg','C':'adef','d':'bcdeg','E':'adefg','F':'aefg','L':'def','n':'ceg','o':'cdeg','r':'eg','-':'g','_':'d',' ':'','~w':'eg','~d':'aef','R0':'bcdef','R1':'acdef','R2':'abdef','R3':'abcef','R4':'abcdf','R5':'abcde'};
 const R7={a:[7,1,18,4],b:[25,5,4,19],c:[25,28,4,19],d:[7,47,18,4],e:[3,28,4,19],f:[3,5,4,19],g:[7,24,18,4]};
 function dig(ch){const on=SEG[ch]??'';let s='<svg class="dig" viewBox="0 0 34 52" aria-hidden="true"><g transform="translate(3 0) skewX(-6)">';
   for(const k in R7){const r=R7[k];s+=`<rect x="${r[0]}" y="${r[1]}" width="${r[2]}" height="${r[3]}" rx="1.6" class="${on.includes(k)?'on':'off'}"/>`}
@@ -404,19 +496,26 @@ function gate(k){
   return true}
 function powerOn(){S.power=true;S.idle=0;S.b.forEach(b=>{b.st='off';b.lv=0});melody();mission('power');
   say(S.locked?'전원이 켜졌습니다. 잠금 설정 LED가 켜져 있으니 잠금 키를 눌러 해제하세요.':'전원이 켜졌습니다.')}
-function powerOff(msg){const hadErr=S.b.some(b=>b.err);S.b.forEach((b,i)=>offBurner(i));S.b.forEach(b=>b.err=null);
+function powerOff(msg){if(S.ac.phase==='wait'||S.ac.phase==='run'){acCancel('전원 키를 눌러 자동조리가 취소되었습니다.',true)}const hadErr=S.b.some(b=>b.err);S.b.forEach((b,i)=>offBurner(i));S.b.forEach(b=>b.err=null);
   S.power=false;S.tedit=false;S.tsel=null;S.mode=null;S.errShow=null;if(S.ble!=='on')S.ble='off';tone(660,.18);
   say((msg||'전원이 꺼졌습니다.')+(hadErr?' 에러도 함께 해제되었습니다.':''))}
-function offBurner(i){const b=S.b[i];b.st='off';b.lv=0;b.timer=0;b.auto=false;b.run=0;b.run9=0;if(S.tsel===i){S.tedit=false;S.tsel=null}}
+function offBurner(i){const b=S.b[i];b.autoCook=false;b.st='off';b.lv=0;b.timer=0;b.auto=false;b.run=0;b.run9=0;if(S.tsel===i){S.tedit=false;S.tsel=null}}
 function burnerToggle(i){const b=S.b[i],n=BN[i].name;
   if(b.err){S.errShow={i,until:now()+4500};say(`에러 ${b.err} · ${ERR[b.err]} 켜짐/꺼짐 키를 1초간 누르면 해제됩니다.`,'err');return}
-  if(S.ble==='pair'||S.ble==='code'){hint('페어링 중에는 점화할 수 없습니다. 오른쪽에서 앱 연결을 마치세요.');return}
+  if(S.ble==='pair'||S.ble==='code'){hint('페어링 중에는 점화할 수 없습니다. 스마트링크 앱 화면에서 연결을 마치세요.');return}
+  const ac=S.ac;
+  if(b.autoCook){offBurner(i);acCancel('자동조리 중 켜짐/꺼짐 키를 눌러 자동조리가 취소되었습니다.');return}
+  if(ac.phase==='done'&&ac.burner===i&&b.st==='off'){ac.phase='idle';ac.burner=null;APP.screen='home';renderApp(true);note(`${n} 완료 표시를 지웠습니다.`);return}
+  if(ac.phase==='wait'&&ac.burner===i&&b.st==='off'){b.st='ign';b.ignT=now();b.run=0;b.run9=0;b.autoCook=true;b.lv=ac.recipe.stages[0].lv;S.idle=0;
+    ac.phase='run';ac.si=0;ac.st=0;ac.alerted=-1;tone(1200,.08);tone(1200,.08,.12);tone(1200,.08,.24);
+    say(`${n}에서 자동조리를 시작합니다. ${ac.recipe.name} · ${ac.recipe.stages[0].name} ${ac.recipe.stages[0].lv}단.`+(S.hood?' 연동된 후드가 켜집니다.':''));APP.screen='run';renderApp(true);return}
   if(b.st==='off'){b.st='ign';b.ignT=now();b.run=0;b.run9=0;b.lv=9;S.idle=0;tone(1200,.08);tone(1200,.08,.12);tone(1200,.08,.24);
     say(`${n} 점화를 시작합니다. 화력 9단(최대)입니다.`+(S.hood?' 연동된 후드가 1단으로 켜집니다.':''));mission('ignite')}
   else{offBurner(i);say(`${n}가 꺼졌습니다.`)}}
 function levelAdj(i,d){const b=S.b[i],n=BN[i].name;
   if(b.st==='off'){hint(`${n}가 꺼져 있습니다. 먼저 켜짐/꺼짐 키를 누르세요.`);return}
   if(b.st==='ign')return;
+  if(b.autoCook){hint('자동조리 중에는 레시피에 따라 화력이 자동으로 조절됩니다.');return}
   if(b.auto){hint('자동 불꽃조절이 작동 중이라 화력을 조절할 수 없습니다. 냄비 온도가 내려가면 다시 조절됩니다.');return}
   const nv=Math.max(1,Math.min(9,b.lv+d));if(nv===b.lv){hint(nv===9?'최대 화력(9단)입니다.':'최소 화력(1단)입니다.');return}
   b.lv=nv;if(nv<9)b.run9=0;note(`${n} 화력 ${nv}단`);mission('level')}
@@ -535,11 +634,14 @@ document.querySelectorAll('[data-speed]').forEach(b=>b.addEventListener('click',
 $('#simHot').addEventListener('click',()=>{initAudio();const on=onList();if(!S.power||!on.length){hint('먼저 화구를 하나 켜 주세요.');return}
   const i=on[0],b=S.b[i];b.auto=true;b.autoT=now()+8000;melody();mission('auto');
   say(`과열방지센서가 고온을 감지했습니다. ${BN[i].name} 불꽃을 자동으로 약하게 줄입니다. 고장이 아니니 안심하세요.`);render()});
+$('#simLow').addEventListener('click',()=>{initAudio();if(S.ac.phase!=='run'){hint('자동조리가 진행 중일 때 재현할 수 있습니다. 앱에서 레시피를 보내고 화구를 켜 보세요.');return}
+  const i=S.ac.burner;offBurner(i);tone(440,.25);tone(440,.25,.3);
+  acCancel('과열방지센서가 작동되었습니다. 조리물이 레시피보다 많이 적으면 화재 방지를 위해 안전장치가 작동합니다. 레시피를 확인한 후 물양을 맞춰 조리하세요.');render()});
 $('#simErr').addEventListener('click',()=>{initAudio();if(!S.power){hint('전원을 켠 상태에서 재현할 수 있습니다.');return}
   const on=onList();errorOn(on.length?on[0]:0,$('#errSel').value);render()});
-$('#reset').addEventListener('click',()=>{const sp=S.speed;S=fresh();S.speed=sp;done={};logs=[];renderMissions();
+$('#reset').addEventListener('click',()=>{const sp=S.speed;S=fresh();S.speed=sp;done={};logs=[];renderMissions();APP.screen='home';APP.sel=null;renderApp(true);
   $('#log').innerHTML='<li><time>--:--</time><span>아직 조작한 내용이 없습니다.</span></li>';hint('처음 설치 상태입니다. 전원 키를 약 1초간 길게 눌러 켜세요.');render()});
-function renderBle(){const box=$('#bleBox');let h='';
+function renderBle(){const box=$('#bleBox');if(!box)return;let h='';
   if(!S.power)h='<p>전원을 켜고 잠금을 푼 뒤 통신 키를 3초간 누르면 시작됩니다.</p>';
   else if(S.ble==='off')h='<p>통신 키를 3초간 길게 눌러 페어링 모드로 바꾸세요. 실제로는 린나이 스마트링크 앱에서 제품 등록 → 주방빌트인 → 모델명을 먼저 고릅니다.</p>';
   else if(S.ble==='pair')h='<button class="btn primary" data-ble="pick">휴대폰에서 기기 선택<small style="color:inherit;opacity:.85">RK_RBR-GF3100C_A8D0</small></button>';
@@ -552,6 +654,107 @@ function renderBle(){const box=$('#bleBox');let h='';
       if(a==='pin'){S.ble='on';mission('ble');melody();say('블루투스 연결이 완료되었습니다.')}
       if(a==='wifi'){S.wifi=true;say('Wi-Fi 연결이 완료되어 Wi-Fi LED가 켜졌습니다.')}render()}))}}
 
+/* ---------- smartlink app ---------- */
+const RECIPES=[
+  {id:'ramen',name:'라면',sub:'물 끓이기 → 면 넣기 → 익히기',col:'#c2410c',ing:'라면, 물 (분량은 앱 레시피 기준)',servs:['1인분','2인분'],
+   stages:[{name:'물 끓이기',lv:9,min:6,probe:true},{name:'면·스프 넣기',lv:9,min:1,alert:'물이 끓었습니다. 면과 스프를 넣어 주세요.'},{name:'면 익히기',lv:7,min:3}]},
+  {id:'rice',name:'밥짓기',sub:'끓이기 → 약불 → 뜸 들이기',col:'#8a6d3b',ing:'30분 이상 불린 쌀, 물',servs:['2인분','4인분'],
+   stages:[{name:'끓이기',lv:9,min:7,probe:true},{name:'약불로 익히기',lv:3,min:10},{name:'뜸 들이기',lv:1,min:5}]},
+  {id:'water',name:'물 끓이기',sub:'끓는 점까지 한 번에',col:'#2b5fe8',ing:'물',servs:['1L','2L'],
+   stages:[{name:'물 끓이기',lv:9,min:8,probe:true}]}
+];
+const MY=[];
+const APP={screen:'home',sel:null,serv:0,pick:null,draft:null,msg:''};
+const APPNO={2:'01',0:'02',1:'03'};
+let appSig='';
+const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const totalMin=r=>r.stages.reduce((a,s)=>a+s.min,0);
+function acCancel(msg,quiet){const ac=S.ac;ac.phase='idle';ac.burner=null;APP.screen='home';if(!quiet)say(msg);else logs.unshift([new Date().toTimeString().slice(0,8),msg]);renderApp(true)}
+function recipeById(id){return RECIPES.find(r=>r.id===id)||MY.find(r=>r.id===id)}
+function appHead(title,back){return `<div class="sbar"><span>9:41</span><span>${S.ble==='on'?'BT':''} ${S.wifi?'Wi-Fi':''}</span></div><div class="ahead">${back?`<button class="aback" data-a="back:${back}" aria-label="뒤로">‹</button>`:''}<b>${title}</b></div>`}
+function renderApp(force){
+  const el=$('#app');if(!el)return;
+  if(APP.screen==='make'&&!force&&el.dataset.screen==='make')return;
+  const ac=S.ac,con=S.power&&S.ble==='on';let h='';
+  if(APP.screen==='home'){
+    h=appHead('자동조리')+`<div class="abody">`;
+    if(!con){h+=`<div class="acard"><b>블루투스 연결이 필요합니다</b><div id="bleBox" class="btns"></div></div>`}
+    else h+=`<div class="acard"><b>RBR-GF3100C 연결됨</b><p>레시피를 기기로 보내면 조작부의 켜짐/꺼짐 키로 자동조리를 시작합니다. 앱에서 화구를 직접 켜거나 끌 수는 없습니다.</p></div>`;
+    h+=`<div class="acard"><b>우리집 레시피</b><p>${MY.length?`저장된 레시피 ${MY.length}개`:'자주 하는 요리의 화력과 시간을 직접 정해 저장합니다.'}</p></div></div>
+      <div class="afoot"><button class="btn primary" data-a="go:list" ${con?'':'disabled'}>자동조리 시작하기</button><button class="btn" data-a="make" ${con?'':'disabled'}>우리집 레시피 만들기</button></div>`}
+  else if(APP.screen==='list'){
+    h=appHead('자동조리 레시피','home')+`<div class="abody"><p>체험용 예시 레시피입니다.</p><div class="rlist">`+
+      RECIPES.concat(MY).map(r=>`<button class="rbtn" data-a="pick:${r.id}"><span class="th" style="background:${r.col}">${esc(r.name.slice(0,2))}</span><span><b>${esc(r.name)}${r.mine?'<span class="tagx">우리집</span>':''}</b><small>${esc(r.sub)} · 약 ${totalMin(r)}분</small></span></button>`).join('')+`</div></div>`}
+  else if(APP.screen==='detail'){const r=recipeById(APP.sel);
+    h=appHead(esc(r.name),'list')+`<div class="abody">
+      ${r.servs?`<div class="seg2">${r.servs.map((v,k)=>`<button class="${APP.serv===k?'sel':''}" data-a="serv:${k}">${v}</button>`).join('')}</div>`:''}
+      <div class="acard"><b>재료</b><p>${esc(r.ing)}</p></div>
+      <div class="acard"><b>조리 단계</b><ul class="steps">${r.stages.map((s,k)=>`<li><i>${k+1}</i><span>${esc(s.name)}</span><span>${s.lv}단 · ${s.probe?'끓으면 다음':s.min+'분'}</span></li>`).join('')}</ul></div>
+      <p>재료를 르플레 전용 냄비에 담은 뒤 전송하세요.</p></div>
+      <div class="afoot"><button class="btn primary" data-a="go:burner">레시피 기기 전송</button></div>`}
+  else if(APP.screen==='burner'){
+    const opt=i=>{const b=S.b[i];const ok=con&&b.st==='off'&&!b.err&&i!==1;return ok};
+    const btn=(i,x,y,sz)=>`<button style="left:${x}%;top:${y}%;width:${sz}px;height:${sz}px;transform:translate(-50%,-50%)" class="${APP.pick===i?'sel':''}" data-a="bpick:${i}" ${opt(i)?'':'disabled'}>${APPNO[i]}<small>${i===1?'자동조리 불가':S.b[i].st!=='off'?'사용 중':'선택 가능'}</small></button>`;
+    h=appHead('화구 선택','detail')+`<div class="abody"><p>자동조리는 사용 중이 아닌 대화구 01, 02에서만 선택할 수 있습니다.</p>
+      <div class="bmap">${btn(1,28,27,70)}${btn(0,30,70,86)}${btn(2,72,47,86)}</div>
+      <p>01은 오른쪽 대화구, 02는 왼쪽 대화구, 03은 소화구입니다.</p></div>
+      <div class="afoot"><button class="btn primary" data-a="send" ${APP.pick!=null&&opt(APP.pick)?'':'disabled'}>이 화구로 보내기</button></div>`}
+  else if(APP.screen==='wait'){const i=ac.burner;
+    h=appHead('화구 켜기 대기중')+`<div class="abody"><div class="acard"><b>${esc(ac.recipe.name)} · 화구 ${APPNO[i]}</b><p>레시피를 기기로 보냈습니다. 조작부에서 ${BN[i].name}의 켜짐/꺼짐 키를 누르면 자동조리가 시작됩니다.</p></div>
+      <div class="acard"><p>조작부의 화력 표시부에 대기 표시가 깜박입니다. 1분 동안 점화하지 않으면 자동조리가 취소됩니다.</p></div></div>`}
+  else if(APP.screen==='run'&&ac.phase==='run'){const r=ac.recipe,s=r.stages[ac.si];
+    const rem=r.stages.slice(ac.si).reduce((a,x)=>a+x.min*60,0)-ac.st,pct=1-rem/(totalMin(r)*60);
+    const C=2*Math.PI*62;
+    h=appHead('자동조리 중')+`<div class="abody">
+      <div class="ring"><svg viewBox="0 0 140 140"><circle cx="70" cy="70" r="62" fill="none" stroke="#e3e4e8" stroke-width="8"/><circle cx="70" cy="70" r="62" fill="none" stroke="#2b5fe8" stroke-width="8" stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C*(1-pct)).toFixed(1)}"/></svg>
+        <div>${s.probe?'<b style="font-size:17px">온도 확인 중</b><small>끓은 뒤 남은 시간 표시</small>':`<b>${mmss(rem)}</b><small>남은 시간</small>`}</div></div>
+      ${s.alert?`<div class="alertx">${esc(s.alert)}</div>`:''}
+      <div class="acard"><b>${esc(r.name)} · 화구 ${APPNO[ac.burner]} · 현재 ${s.lv}단</b><ul class="steps">${r.stages.map((x,k)=>`<li class="${k<ac.si?'ok':k===ac.si?'cur':''}"><i>${k+1}</i><span>${esc(x.name)}</span><span>${x.lv}단</span></li>`).join('')}</ul></div>
+      <p>취소하려면 조작부에서 해당 화구의 켜짐/꺼짐 키를 누르세요. 조리 중에도 조리물 상태를 확인하세요.</p></div>`}
+  else if(APP.screen==='done'){
+    h=appHead('조리 완료')+`<div class="abody"><div class="acard"><b>${esc(ac.recipe?ac.recipe.name:'')} 자동조리가 완료되었습니다</b><p>화구가 꺼지고 조작부에 완료 표시가 잠시 나타납니다.</p></div></div>
+      <div class="afoot"><button class="btn primary" data-a="finish">처음으로</button></div>`}
+  else if(APP.screen==='make'){const d=APP.draft;
+    h=appHead('우리집 레시피 만들기','home')+`<div class="abody">
+      <label>레시피 제목<input id="mkTitle" value="${esc(d.title)}" maxlength="20"></label>
+      <div class="acard"><b>화력 설정</b>${d.stages.map((s,k)=>`<div class="strow"><i>${k+1}</i>
+        <select data-mk="lv:${k}" aria-label="${k+1}단계 화력">${[1,2,3,4,5,6,7,8,9].map(v=>`<option value="${v}" ${v===s.lv?'selected':''}>${v}단</option>`).join('')}</select>
+        <select data-mk="min:${k}" aria-label="${k+1}단계 시간">${Array.from({length:40},(_,m)=>m+1).map(v=>`<option value="${v}" ${v===s.min?'selected':''}>${v}분</option>`).join('')}</select>
+        <button data-a="mkdel:${k}" aria-label="${k+1}단계 삭제" ${d.stages.length<2?'disabled':''}>×</button></div>`).join('')}
+        ${d.stages.length<6?'<button class="btn" data-a="mkadd">단계 추가</button>':''}</div>
+      <p>화력마다 최대 40분, 총 2시간까지 설정할 수 있습니다. 9단은 합계 59분까지입니다.</p>
+      <div class="err" id="mkErr">${esc(APP.msg)}</div></div>
+      <div class="afoot"><button class="btn primary" data-a="mksave">저장</button></div>`}
+  else {APP.screen='home';return renderApp(true)}
+  if(h===appSig&&!force)return;appSig=h;el.innerHTML=h;el.dataset.screen=APP.screen;
+  const bb=el.querySelector('#bleBox');if(bb)delete bb.dataset.h;
+}
+function mkRead(){const d=APP.draft;const t=$('#mkTitle');if(t)d.title=t.value;
+  document.querySelectorAll('[data-mk]').forEach(x=>{const [f,k]=x.dataset.mk.split(':');d.stages[+k][f]=+x.value})}
+$('#app').addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(!t||t.disabled)return;initAudio();click();
+  const [a,v]=t.dataset.a.split(':');
+  if(a==='back'||a==='go'){if(APP.screen==='make')mkRead();APP.screen=v;if(v==='burner')APP.pick=null}
+  if(a==='pick'){APP.sel=v;APP.serv=0;APP.screen='detail'}
+  if(a==='serv')APP.serv=+v;
+  if(a==='bpick')APP.pick=+v;
+  if(a==='send'){const i=APP.pick,r=recipeById(APP.sel);
+    if(S.ac.phase==='wait'||S.ac.phase==='run'){note('이미 진행 중인 자동조리가 있습니다.','help');return}
+    S.ac={phase:'wait',recipe:r,burner:i,si:0,st:0,waitT:now(),doneT:0,alerted:-1};APP.screen='wait';
+    say(`앱에서 ${r.name} 레시피를 화구 ${APPNO[i]}(${BN[i].name})로 보냈습니다. 전용 냄비를 올리고 켜짐/꺼짐 키를 누르세요.`)}
+  if(a==='finish'){S.ac.phase='idle';S.ac.burner=null;APP.screen='home'}
+  if(a==='make'){APP.draft={title:'우리집 김치찌개',stages:[{lv:9,min:8},{lv:5,min:15}]};APP.msg='';APP.screen='make'}
+  if(a==='mkadd'){mkRead();APP.draft.stages.push({lv:3,min:5})}
+  if(a==='mkdel'){mkRead();APP.draft.stages.splice(+v,1)}
+  if(a==='mksave'){mkRead();const d=APP.draft,tot=d.stages.reduce((x,s)=>x+s.min,0),n9=d.stages.filter(s=>s.lv===9).reduce((x,s)=>x+s.min,0);
+    APP.msg=!d.title.trim()?'레시피 제목을 입력하세요.':tot>120?`총 ${tot}분입니다. 2시간(120분) 이내로 줄여 주세요.`:n9>59?`9단 합계가 ${n9}분입니다. 59분 이내로 줄여 주세요.`:'';
+    if(!APP.msg){const id='my'+(MY.length+1);MY.push({id,mine:true,name:d.title.trim(),sub:d.stages.map(s=>s.lv+'단 '+s.min+'분').join(' → '),col:'#3f6b4f',ing:'직접 등록한 레시피',
+      stages:d.stages.map((s,k)=>({name:k===0?'시작':'단계 '+(k+1),lv:s.lv,min:s.min}))});mission('myrecipe');say(`우리집 레시피 '${d.title.trim()}'를 저장했습니다. 레시피 목록에서 보낼 수 있습니다.`);APP.screen='list'}}
+  renderApp(true);render()});
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{const g=b.dataset.go;
+  if(g==='app'){$('#appCard').scrollIntoView({behavior:'smooth',block:'start'});hint('전원을 켜고 앱을 연결한 뒤 자동조리 시작하기를 누르세요.')}
+  if(g==='design'){$('#stage').scrollIntoView({behavior:'smooth',block:'center'});if(T3&&T3.view)T3.view('side');hint('드래그해서 돌려 보세요. 위쪽 버튼으로 시점을 바꿀 수 있습니다.')}
+  if(g==='safety'){$('#missionCard').scrollIntoView({behavior:'smooth',block:'start'});hint('잠금, 세이프티 락, 냄비 과열 감지를 미션에서 차례로 해 보세요.')}}));
+
 /* ---------- render ---------- */
 const blink=p=>Math.floor(now()/(p||450))%2===0;
 const mmss=s=>{s=Math.max(0,Math.ceil(s));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
@@ -563,6 +766,9 @@ function render(){
     if(S.ble==='pair')return ['8','d','0'][i];
     if(S.ble==='code')return ['8','0','2'][i];
     if(b.err)return blink(400)?'E':' ';
+    if(b.autoCook)return 'R'+(Math.floor(t/160)%6);
+    if(S.ac.phase==='wait'&&S.ac.burner===i&&b.st==='off')return blink(600)?'~w':' ';
+    if(S.ac.phase==='done'&&S.ac.burner===i&&b.st==='off'&&t-S.ac.doneT<15000)return '~d';
     if(b.st==='ign')return '9';
     if(b.auto)return 'A';
     if(b.st==='on')return String(b.lv);
@@ -575,7 +781,7 @@ function render(){
     else{let mi=-1,mv=1e9;S.b.forEach((b,i)=>{if(b.timer>0){dots[BN[i].pos]='on';if(b.timer<mv){mv=b.timer;mi=i}}});
       if(mi>=0)tf=String(Math.ceil(mv/60)).padStart(2,' ')}
   }
-  if(T3)T3.state({tf,bf,dots,wifi:S.power&&S.wifi,ble:!S.power?'':(S.ble==='pair'||S.ble==='code')?'blink':S.ble==='on'?'on':'',hood:S.power&&S.hood,lock:S.power&&(S.locked||S.safety)});
+  if(T3)T3.state({tf,bf,dots,wifi:S.power&&S.wifi,ble:!S.power?'':(S.ble==='pair'||S.ble==='code')?'blink':S.ble==='on'?'on':'',hood:S.power&&S.hood,lock:S.power&&(S.locked||S.safety),pot:(S.ac.phase!=='idle'&&S.ac.burner!=null)?S.ac.burner:null,steam:S.ac.phase==='run'&&S.ac.st>40});
   const tdots=`<span class="tdots"><i class="${dots[0]}"></i><i class="${dots[1]}"></i></span>`;
   const rdot=`<span class="tdots"><i class="${dots[2]}"></i></span>`;
   const bleCls=!S.power?'':S.ble==='pair'||S.ble==='code'?'blink':S.ble==='on'?'on':'';
@@ -606,6 +812,7 @@ function render(){
   c.push(`<span class="chip dim">음량 ${S.volume} · 음성 ${S.voice?'켬':'끔'} · 멜로디 ${S.melody?'켬':'끔'}</span>`);
   if(S.speed>1)c.push('<span class="chip dim">60배속</span>');
   $('#chips').innerHTML=c.join('');
+  renderApp();
   renderBle();
 }
 
@@ -614,7 +821,14 @@ let last=performance.now();
 setInterval(()=>{const pn=performance.now(),dt=(pn-last)/1000*S.speed;last=pn;const t=now();
   if(S.power){
     S.b.forEach((b,i)=>{
-      if(b.st==='ign'&&t-b.ignT>900){b.st='on';b.lv=9}
+      if(b.st==='ign'&&t-b.ignT>900){b.st='on';b.lv=b.autoCook?S.ac.recipe.stages[S.ac.si].lv:9}
+      if(b.autoCook&&b.st==='on'&&S.ac.phase==='run'){const ac=S.ac,rs=ac.recipe.stages;ac.st+=dt;
+        if(ac.st>=rs[ac.si].min*60){ac.si++;ac.st=0;
+          if(ac.si>=rs.length){offBurner(i);ac.phase='done';ac.doneT=t;melody();mission('autocook');APP.screen='done';renderApp(true);
+            say(`${ac.recipe.name} 자동조리가 완료되었습니다. 화구가 꺼졌습니다.`);return}
+          tone(1300,.12);say(`${ac.recipe.name} · ${rs[ac.si].name} 단계로 넘어갑니다. 화력 ${rs[ac.si].lv}단.`)}
+        b.lv=rs[ac.si].lv;
+        if(rs[ac.si].alert&&ac.alerted!==ac.si){ac.alerted=ac.si;melody();say('앱 알림 · '+rs[ac.si].alert)}}
       if(b.st==='on'){b.run+=dt;if(b.lv===9&&!b.auto)b.run9+=dt;else b.run9=0;
         if(b.timer>0){b.timer-=dt;if(b.timer<=0){offBurner(i);melody();say(`${BN[i].name} 타이머가 끝나 화구가 꺼졌습니다.`);return}}
         if(b.run9>=3600){errorOn(i,'07');return}
@@ -625,6 +839,7 @@ setInterval(()=>{const pn=performance.now(),dt=(pn-last)/1000*S.speed;last=pn;co
     if(S.mode){if(S.mode.adj&&t-S.mode.t>5000)confirmMode();else if(!S.mode.adj&&t>S.mode.until)S.mode=null}
     if(S.tedit&&t-S.teditT>5000)confirmTimer();
     if(S.errShow&&t>S.errShow.until)S.errShow=null;
+    if(S.ac.phase==='wait'&&t-S.ac.waitT>60000)acCancel('점화 대기 시간 동안 화구가 켜지지 않아 자동조리가 취소되었습니다.');
     if(!anyActive()&&!S.tedit&&!S.mode&&S.ble!=='pair'&&S.ble!=='code'&&!pressed.size){S.idle+=dt;if(S.idle>=180)powerOff('모든 화구가 꺼진 지 3분이 지나 전원이 자동으로 꺼졌습니다.')}else S.idle=0;
   }
   render()},250);
@@ -798,6 +1013,20 @@ function init3D(){
   cv.addEventListener('pointerup',end);cv.addEventListener('pointercancel',end);cv.addEventListener('contextmenu',e=>e.preventDefault());
   cv.addEventListener('wheel',e=>{e.preventDefault();goal.r=Math.max(25,Math.min(170,goal.r*(1+Math.sign(e.deltaY)*.08)))},{passive:false});
 
+  // Reflet auto-cooking pot (stainless, 22cm)
+  const pot=new THREE.Group(),steel=std({color:0xdfe2e6,metalness:1,roughness:.26}),steelIn=std({color:0xb9bdc3,metalness:1,roughness:.38,side:THREE.BackSide});
+  const body=new THREE.Mesh(new THREE.CylinderGeometry(11,11,10.5,72,1,true),steel);body.position.y=5.25;body.castShadow=true;pot.add(body);
+  const inner=new THREE.Mesh(new THREE.CylinderGeometry(10.8,10.8,10.4,72,1,true),steelIn);inner.position.y=5.25;pot.add(inner);
+  const base=cyl(10.9,.5,std({color:0x9da1a7,metalness:1,roughness:.35}),72);base.position.y=.25;pot.add(base);
+  const lip=new THREE.Mesh(new THREE.TorusGeometry(11,.22,10,72),steel);lip.rotation.x=Math.PI/2;lip.position.y=10.5;pot.add(lip);
+  const lid=new THREE.Mesh(new THREE.SphereGeometry(16,72,12,0,Math.PI*2,0,.76),steel);lid.position.y=10.5-16*Math.cos(.76)+.2;lid.castShadow=true;pot.add(lid);
+  const knob=cyl(1.3,1.4,M.cap,24,1.1);knob.position.y=lid.position.y+16+.5;pot.add(knob);
+  [-1,1].forEach(sg=>{const h=new THREE.Mesh(new THREE.TorusGeometry(2.1,.45,10,24,Math.PI),steel);h.position.set(sg*11.4,8.6,0);h.rotation.set(Math.PI/2,0,sg>0?-Math.PI/2:Math.PI/2);h.castShadow=true;pot.add(h)});
+  pot.visible=false;scene.add(pot);
+  const sc=document.createElement('canvas');sc.width=sc.height=64;const sx=sc.getContext('2d');const gr=sx.createRadialGradient(32,32,2,32,32,30);gr.addColorStop(0,'rgba(255,255,255,.55)');gr.addColorStop(1,'rgba(255,255,255,0)');sx.fillStyle=gr;sx.fillRect(0,0,64,64);
+  const smat=new THREE.SpriteMaterial({map:new THREE.CanvasTexture(sc),transparent:true,depthWrite:false});
+  const puffs=Array.from({length:14},(_,k)=>{const s=new THREE.Sprite(smat.clone());s.userData.ph=k/14;s.userData.a=Math.random()*6.28;scene.add(s);s.visible=false;return s});
+  let potAt=null;
   const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   function frame(tm){
     const k=reduce?1:.09;cur.t.lerp(goal.t,k);cur.r+=(goal.r-cur.r)*k;cur.phi+=(goal.phi-cur.phi)*k;cur.th+=(goal.th-cur.th)*k;
@@ -811,10 +1040,16 @@ function init3D(){
         f.m.scale.set(1,1,B.len*w*1.15);f.core.scale.set(.55,.55,B.len*w*.6)}});
       B.lt.intensity=vis?B.len*1.6*(reduce?1:.92+.08*Math.sin(sec*23+i)):0;
       B.sp.visible=S.power&&b.st==='ign'&&t-b.ignT<700&&(Math.floor(t/90)%2===0)});
+    const pi=V?V.pot:null;
+    if(pi!==potAt){potAt=pi;if(pi!=null){pot.position.set(BUR[pi].g.position.x,3.6,BUR[pi].g.position.z);pot.visible=true;pot.userData.drop=1}else pot.visible=false}
+    if(pot.visible&&pot.userData.drop>0){pot.userData.drop=Math.max(0,pot.userData.drop-.05);pot.position.y=3.6+pot.userData.drop*pot.userData.drop*8}
+    puffs.forEach(p=>{p.visible=!!(V&&V.steam&&pot.visible&&!reduce);if(!p.visible)return;const f=(sec*.18+p.userData.ph)%1;
+      p.position.set(pot.position.x+Math.cos(p.userData.a)*(4+f*3),pot.position.y+15+f*16,pot.position.z+Math.sin(p.userData.a)*(4+f*3));
+      const s=4+f*10;p.scale.set(s,s,1);p.material.opacity=.5*Math.sin(f*Math.PI)});
     drawPanel();R.render(scene,cam);requestAnimationFrame(frame)}
   requestAnimationFrame(frame);
   $('#loading').remove();
-  return{state(v){V=v}};
+  return{state(v){V=v},view:setView};
 }
 
 buildTop();
