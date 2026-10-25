@@ -234,6 +234,7 @@ tr:last-child td{border-bottom:0}
           <button data-view="side">옆에서</button>
           <button data-view="top">위에서</button>
           <button data-view="panel">조작부</button>
+          <button id="potBtn" title="르플레 전용 냄비를 대화구에 올리거나 내립니다">냄비 올리기</button>
         </div>
         <div class="loading" id="loading">3D 화면을 불러오는 중입니다…</div>
         <div class="stagehint">드래그로 돌리기 · 휠·두 손가락으로 확대 · 조작부를 직접 눌러도 됩니다</div>
@@ -634,6 +635,9 @@ document.querySelectorAll('[data-speed]').forEach(b=>b.addEventListener('click',
 $('#simHot').addEventListener('click',()=>{initAudio();const on=onList();if(!S.power||!on.length){hint('먼저 화구를 하나 켜 주세요.');return}
   const i=on[0],b=S.b[i];b.auto=true;b.autoT=now()+8000;melody();mission('auto');
   say(`과열방지센서가 고온을 감지했습니다. ${BN[i].name} 불꽃을 자동으로 약하게 줄입니다. 고장이 아니니 안심하세요.`);render()});
+$('#potBtn').addEventListener('click',()=>{if(S.ac.phase!=='idle'){hint('자동조리 중에는 레시피를 보낸 화구에 냄비가 놓여 있습니다.');return}
+  POT.at=POT.at==null?2:POT.at===2?0:null;$('#potBtn').textContent=potLabel();if(T3&&T3.focus)T3.focus(POT.at);$('#potBtn').classList.toggle('sel',POT.at!=null);
+  note(POT.at==null?'냄비를 내렸습니다.':`르플레 전용 냄비(RCP-REFLET22)를 ${BN[POT.at].name}에 올렸습니다. 지름 22cm, 통 5중 스테인리스입니다.`);render()});
 $('#simLow').addEventListener('click',()=>{initAudio();if(S.ac.phase!=='run'){hint('자동조리가 진행 중일 때 재현할 수 있습니다. 앱에서 레시피를 보내고 화구를 켜 보세요.');return}
   const i=S.ac.burner;offBurner(i);tone(440,.25);tone(440,.25,.3);
   acCancel('과열방지센서가 작동되었습니다. 조리물이 레시피보다 많이 적으면 화재 방지를 위해 안전장치가 작동합니다. 레시피를 확인한 후 물양을 맞춰 조리하세요.');render()});
@@ -739,7 +743,7 @@ $('#app').addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(!
   if(a==='bpick')APP.pick=+v;
   if(a==='send'){const i=APP.pick,r=recipeById(APP.sel);
     if(S.ac.phase==='wait'||S.ac.phase==='run'){note('이미 진행 중인 자동조리가 있습니다.','help');return}
-    S.ac={phase:'wait',recipe:r,burner:i,si:0,st:0,waitT:now(),doneT:0,alerted:-1};APP.screen='wait';
+    POT.at=i;$('#potBtn').textContent=potLabel();$('#potBtn').classList.add('sel');S.ac={phase:'wait',recipe:r,burner:i,si:0,st:0,waitT:now(),doneT:0,alerted:-1};APP.screen='wait';
     say(`앱에서 ${r.name} 레시피를 화구 ${APPNO[i]}(${BN[i].name})로 보냈습니다. 전용 냄비를 올리고 켜짐/꺼짐 키를 누르세요.`)}
   if(a==='finish'){S.ac.phase='idle';S.ac.burner=null;APP.screen='home'}
   if(a==='make'){APP.draft={title:'우리집 김치찌개',stages:[{lv:9,min:8},{lv:5,min:15}]};APP.msg='';APP.screen='make'}
@@ -755,6 +759,10 @@ document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=
   if(g==='design'){$('#stage').scrollIntoView({behavior:'smooth',block:'center'});if(T3&&T3.view)T3.view('side');hint('드래그해서 돌려 보세요. 위쪽 버튼으로 시점을 바꿀 수 있습니다.')}
   if(g==='safety'){$('#missionCard').scrollIntoView({behavior:'smooth',block:'start'});hint('잠금, 세이프티 락, 냄비 과열 감지를 미션에서 차례로 해 보세요.')}}));
 
+function potBurner(){if(S.ac.phase!=='idle'&&S.ac.burner!=null)return S.ac.burner;return POT.at}
+function potSteam(){const i=potBurner();if(i==null)return false;const b=S.b[i];if(S.ac.phase==='run'&&S.ac.burner===i)return S.ac.st>40||S.ac.si>0;return S.power&&b.st==='on'&&b.run>45&&b.lv>=5}
+const POT={at:null};
+function potLabel(){return POT.at==null?'냄비 올리기':`냄비: ${POT.at===2?'오른쪽':'왼쪽'} 대화구`}
 /* ---------- render ---------- */
 const blink=p=>Math.floor(now()/(p||450))%2===0;
 const mmss=s=>{s=Math.max(0,Math.ceil(s));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
@@ -781,7 +789,7 @@ function render(){
     else{let mi=-1,mv=1e9;S.b.forEach((b,i)=>{if(b.timer>0){dots[BN[i].pos]='on';if(b.timer<mv){mv=b.timer;mi=i}}});
       if(mi>=0)tf=String(Math.ceil(mv/60)).padStart(2,' ')}
   }
-  if(T3)T3.state({tf,bf,dots,wifi:S.power&&S.wifi,ble:!S.power?'':(S.ble==='pair'||S.ble==='code')?'blink':S.ble==='on'?'on':'',hood:S.power&&S.hood,lock:S.power&&(S.locked||S.safety),pot:(S.ac.phase!=='idle'&&S.ac.burner!=null)?S.ac.burner:null,steam:S.ac.phase==='run'&&S.ac.st>40});
+  if(T3)T3.state({tf,bf,dots,wifi:S.power&&S.wifi,ble:!S.power?'':(S.ble==='pair'||S.ble==='code')?'blink':S.ble==='on'?'on':'',hood:S.power&&S.hood,lock:S.power&&(S.locked||S.safety),pot:potBurner(),steam:potSteam()});
   const tdots=`<span class="tdots"><i class="${dots[0]}"></i><i class="${dots[1]}"></i></span>`;
   const rdot=`<span class="tdots"><i class="${dots[2]}"></i></span>`;
   const bleCls=!S.power?'':S.ble==='pair'||S.ble==='code'?'blink':S.ble==='on'?'on':'';
@@ -1013,15 +1021,45 @@ function init3D(){
   cv.addEventListener('pointerup',end);cv.addEventListener('pointercancel',end);cv.addEventListener('contextmenu',e=>e.preventDefault());
   cv.addEventListener('wheel',e=>{e.preventDefault();goal.r=Math.max(25,Math.min(170,goal.r*(1+Math.sign(e.deltaY)*.08)))},{passive:false});
 
-  // Reflet auto-cooking pot (stainless, 22cm)
-  const pot=new THREE.Group(),steel=std({color:0xdfe2e6,metalness:1,roughness:.26}),steelIn=std({color:0xb9bdc3,metalness:1,roughness:.38,side:THREE.BackSide});
-  const body=new THREE.Mesh(new THREE.CylinderGeometry(11,11,10.5,72,1,true),steel);body.position.y=5.25;body.castShadow=true;pot.add(body);
-  const inner=new THREE.Mesh(new THREE.CylinderGeometry(10.8,10.8,10.4,72,1,true),steelIn);inner.position.y=5.25;pot.add(inner);
-  const base=cyl(10.9,.5,std({color:0x9da1a7,metalness:1,roughness:.35}),72);base.position.y=.25;pot.add(base);
-  const lip=new THREE.Mesh(new THREE.TorusGeometry(11,.22,10,72),steel);lip.rotation.x=Math.PI/2;lip.position.y=10.5;pot.add(lip);
-  const lid=new THREE.Mesh(new THREE.SphereGeometry(16,72,12,0,Math.PI*2,0,.76),steel);lid.position.y=10.5-16*Math.cos(.76)+.2;lid.castShadow=true;pot.add(lid);
-  const knob=cyl(1.3,1.4,M.cap,24,1.1);knob.position.y=lid.position.y+16+.5;pot.add(knob);
-  [-1,1].forEach(sg=>{const h=new THREE.Mesh(new THREE.TorusGeometry(2.1,.45,10,24,Math.PI),steel);h.position.set(sg*11.4,8.6,0);h.rotation.set(Math.PI/2,0,sg>0?-Math.PI/2:Math.PI/2);h.castShadow=true;pot.add(h)});
+  // Reflet pot (RCP-REFLET22): straight-wall 5-ply stainless, low domed lid with disc knob, flat loop side handles
+  const bc=document.createElement('canvas');bc.width=1024;bc.height=64;const bx=bc.getContext('2d');
+  bx.fillStyle='#c9ccd0';bx.fillRect(0,0,1024,64);
+  for(let k=0;k<900;k++){const y=Math.random()*64,a=Math.random()*.07;bx.fillStyle=Math.random()<.5?`rgba(255,255,255,${a})`:`rgba(70,74,80,${a*.7})`;bx.fillRect(0,y,1024,Math.random()*1.4+.3)}
+  const btex=new THREE.CanvasTexture(bc);btex.wrapS=btex.wrapT=THREE.RepeatWrapping;btex.repeat.set(1,1);
+  const lc=document.createElement('canvas');lc.width=256;lc.height=256;const lx=lc.getContext('2d');lx.fillStyle='#e6e8eb';lx.fillRect(0,0,256,256);
+  for(let r=4;r<128;r+=.8){lx.strokeStyle=Math.random()<.5?`rgba(255,255,255,${Math.random()*.16})`:`rgba(70,74,80,${Math.random()*.1})`;lx.beginPath();lx.arc(128,128,r,0,7);lx.stroke()}
+  const ltex=new THREE.CanvasTexture(lc);
+  const steel=std({color:0xe9ebee,metalness:1,roughness:.22}),steelLid=std({color:0xffffff,map:ltex,metalness:1,roughness:.18}),
+        polish=std({color:0xf2f3f5,metalness:1,roughness:.12}),steelIn=std({color:0xc4c7cc,metalness:1,roughness:.4,side:THREE.BackSide});
+  const pot=new THREE.Group(),POTR=11,POTH=11.6;
+  const body=new THREE.Mesh(new THREE.CylinderGeometry(POTR,POTR,POTH-1.2,96,1,true),steel);body.position.y=1.2+(POTH-1.2)/2;body.castShadow=true;pot.add(body);
+  const inner=new THREE.Mesh(new THREE.CylinderGeometry(POTR-.25,POTR-.25,POTH,96,1,true),steelIn);inner.position.y=POTH/2;pot.add(inner);
+  // encapsulated base band, slightly tucked in with rounded heel
+  const heel=new THREE.Mesh(new THREE.LatheGeometry([new THREE.Vector2(POTR-1.1,0),new THREE.Vector2(POTR-.5,.08),new THREE.Vector2(POTR-.12,.45),new THREE.Vector2(POTR,1.2)],96),polish);heel.castShadow=true;pot.add(heel);
+  const sole=cyl(POTR-1.1,.08,std({color:0x8e9298,metalness:1,roughness:.5}),72);sole.position.y=.04;pot.add(sole);
+  // rolled rim
+  const lip=new THREE.Mesh(new THREE.TorusGeometry(POTR+.05,.2,10,96),polish);lip.rotation.x=Math.PI/2;lip.position.y=POTH;pot.add(lip);
+  // lid: flat flange that rests on the rim + low dome
+  const lidG=new THREE.Group();lidG.position.y=POTH+.05;pot.add(lidG);
+  const flange=new THREE.Mesh(new THREE.CylinderGeometry(POTR+.35,POTR+.35,.25,96),steelLid);flange.position.y=.12;flange.castShadow=true;lidG.add(flange);
+  const DR=26,ang=Math.asin((POTR+.1)/DR),dome=new THREE.Mesh(new THREE.SphereGeometry(DR,96,16,0,Math.PI*2,0,ang),steelLid);dome.position.y=.2-DR*Math.cos(ang);dome.castShadow=true;lidG.add(dome);
+  const domeTop=.2+DR*(1-Math.cos(ang));
+  const lidRim=new THREE.Mesh(new THREE.TorusGeometry(POTR+.35,.13,8,96),polish);lidRim.rotation.x=Math.PI/2;lidRim.position.y=.2;lidG.add(lidRim);
+  // knob: short post + flat disc cap
+  const post=cyl(.75,1.3,polish,32);post.position.y=domeTop+.6;lidG.add(post);
+  const cap=cyl(2.6,.55,polish,48,2.4);cap.position.y=domeTop+1.5;lidG.add(cap);
+  const capTop=cyl(2.5,.06,steelLid,48);capTop.position.y=domeTop+1.8;lidG.add(capTop);
+  // side handles: riveted plate + flat loop angled slightly upward
+  [-1,1].forEach(sg=>{const hg=new THREE.Group();hg.position.set(sg*POTR,POTH-2.1,0);hg.rotation.y=sg>0?0:Math.PI;pot.add(hg);
+    const plate=box(.25,1.8,3.4,polish);plate.position.x=.1;hg.add(plate);
+    [-1,1].forEach(z=>{const rv=cyl(.22,.12,polish,12);rv.rotation.z=Math.PI/2;rv.position.set(-.18,0,z*1.1);hg.add(rv)});
+    const loop=new THREE.Mesh(new THREE.TorusGeometry(1.75,.2,8,32,Math.PI),polish);loop.scale.set(1,1,2.6);
+    const lg=new THREE.Group();lg.add(loop);loop.rotation.set(Math.PI/2,0,-Math.PI/2);lg.position.set(.25,0,0);lg.rotation.z=.32;loop.castShadow=true;hg.add(lg)});
+  // engraved name on the front wall
+  const tc=document.createElement('canvas');tc.width=256;tc.height=64;const tx=tc.getContext('2d');tx.font='600 34px "IBM Plex Sans KR",sans-serif';tx.textAlign='center';tx.fillStyle='rgba(60,63,68,.55)';tx.fillText('Reflet',128,44);
+  const tag=new THREE.Mesh(new THREE.CylinderGeometry(POTR+.01,POTR+.01,1.6,48,1,true,-.35,.7),new THREE.MeshStandardMaterial({map:new THREE.CanvasTexture(tc),transparent:true,metalness:.6,roughness:.4,depthWrite:false}));
+  tag.position.y=7.2;tag.rotation.y=Math.PI/2+.15;pot.add(tag);
+  pot.userData.lid=lidG;
   pot.visible=false;scene.add(pot);
   const sc=document.createElement('canvas');sc.width=sc.height=64;const sx=sc.getContext('2d');const gr=sx.createRadialGradient(32,32,2,32,32,30);gr.addColorStop(0,'rgba(255,255,255,.55)');gr.addColorStop(1,'rgba(255,255,255,0)');sx.fillStyle=gr;sx.fillRect(0,0,64,64);
   const smat=new THREE.SpriteMaterial({map:new THREE.CanvasTexture(sc),transparent:true,depthWrite:false});
@@ -1044,12 +1082,15 @@ function init3D(){
     if(pi!==potAt){potAt=pi;if(pi!=null){pot.position.set(BUR[pi].g.position.x,3.6,BUR[pi].g.position.z);pot.visible=true;pot.userData.drop=1}else pot.visible=false}
     if(pot.visible&&pot.userData.drop>0){pot.userData.drop=Math.max(0,pot.userData.drop-.05);pot.position.y=3.6+pot.userData.drop*pot.userData.drop*8}
     puffs.forEach(p=>{p.visible=!!(V&&V.steam&&pot.visible&&!reduce);if(!p.visible)return;const f=(sec*.18+p.userData.ph)%1;
-      p.position.set(pot.position.x+Math.cos(p.userData.a)*(4+f*3),pot.position.y+15+f*16,pot.position.z+Math.sin(p.userData.a)*(4+f*3));
+      p.position.set(pot.position.x+Math.cos(p.userData.a)*(4+f*3),pot.position.y+POTH+3+f*16,pot.position.z+Math.sin(p.userData.a)*(4+f*3));
       const s=4+f*10;p.scale.set(s,s,1);p.material.opacity=.5*Math.sin(f*Math.PI)});
+    if(pot.visible){const bubbling=V&&V.steam&&!reduce;pot.userData.lid.position.y=POTH+.05+(bubbling?Math.max(0,Math.sin(sec*7))*.12:0)}
     drawPanel();R.render(scene,cam);requestAnimationFrame(frame)}
   requestAnimationFrame(frame);
   $('#loading').remove();
-  return{state(v){V=v},view:setView};
+  function focus(i){if(i==null){setView('oblique');return}const g=BUR[i].g.position;goal.t.set(g.x,5,g.z);goal.r=70;goal.phi=1.02;goal.th=i===2?-.35:.35;
+    document.querySelectorAll('[data-view]').forEach(b=>b.classList.remove('sel'))}
+  return{state(v){V=v},view:setView,focus};
 }
 
 buildTop();
